@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -2067402452, guid: bab6fa851cf5a1a4bba3cec5f191cb8e, type: 3}
+  m_Name: VuforiaConfiguration
+  m_EditorClassIdentifier: 
+  vuforia:
+    vuforiaLicenseKey: AV0FYJP/////AAABmU80YWFqOED3jdypZmBX88EhPWBDybVbSlNLMmXpgCY810cH/bZUaYtVLTVVtlMSQIlisqr2LO4vvgv514TzNfzdM8HhhQvKjcEcvJB3pgC/XYhaa6Yjd/wkQcG9/Go4qhXQLouTvLeGrOXHK4aN5Sigh5rYcmLWpf0V5xJ9z8a3TXs2dtSNvK33jAIJ20uqR9FHnGuO3A/7bRsKG2UYTf+SciuvNIybcX5WrZyD7iLew7vFz95d49U3P/ACrNW3cKVN5lMw5G/xjUXDE3/ru3tBPN2vwi5bALaPiSjbPEK0VmKm/Oo47ZXnpvIoP5AOiQj0vjf6zqHpHOx14ODNgJ5cRu/0/d0ddSoXpDzv7lPz
+    ufoLicenseKey: QVp1bmEwMy8vLy8vQUFBQUtFMlMrOFdad0U0Rm00WXpVb1pXRnZOeUdSZEpPdUhpWTl4WGNKUTd3bWpwNTV2UVpqOGUwYnlIUmN2V1NuTWJOcmp4QWZMWFArb09ubCt5V2NNbFcrZklpVFhWTkZaU0s2K1R4RmpLVnNwYkhaOXBRRkY1VUp4ZmU1dXYxaEtxTDNKQUlOcEJ2aTRmYzF4cnljemo1enFoMFlYZk8vV3EwZjNiYzVEY2NNMU1Od2ZzS1hVd1kwYTZsNHVRR2dXTWZrMEh1SncvMjZEMnBUaE1RNUVId1AwbWdhWHpVb28wSUJHazc1VnRYbUpaM1pGL1lDRjE4M25pZ3FtMEVmcStVS05rbG9QbDFROWZzRG91elhVdlVwWlFVbTVTZFBudlVpbml3dEIxSVpsczFVR1pLUmNIb2pqT3hCWkE2bDIrWVN4bHdza1pQd0p1VzR5S3FqWC9vcS8rWUhDTUpQOHRQVGk5RnNtNTh5SWw=
+    delayedInitialization: 0
+    cameraDeviceModeSetting: -1
+    maxSimultaneousImageTargets: 1
+    maxSimultaneousObjectTargets: 1
+    useDelayedLoadingObjectTargets: 0
+    cameraDirection: 0
+    mirrorVideoBackground: 0
+  digitalEyewear:
+    cameraOffset: 0.06
+    distortionRenderingLayer: 31
+    eyewearType: 0
+    stereoFramework: 0
+    seeThroughConfiguration: 0
+    viewerName: 
+    viewerManufacturer: 
+    useCustomViewer: 0
+    customViewer:
+      Version: 0
+      Name: 
+      Manufacturer: 
+      ButtonType: 0
+      ScreenToLensDistance: 0
+      InterLensDistance: 0
+      TrayAlignment: 0
+      LensCenterToTrayDistance: 0
+      DistortionCoefficients: {x: 0, y: 0}
+      FieldOfView: {x: 0, y: 0, z: 0, w: 0}
+      ContainsMagnet: 0
+  videoBackground:
+    clippingMode: 0
+    numDivisions: 2
+    videoBackgroundShader: {fileID: 15311, guid: 0000000000000000f000000000000000,
+      type: 0}
+    matteShader: {fileID: 15310, guid: 0000000000000000f000000000000000, type: 0}
+    videoBackgroundEnabled: 1
+  deviceTracker:
+    autoInitTracker: 0
+    autoStartTracker: 0
+    trackingMode: 0
+    posePrediction: 0
+    modelCorrectionMode: 0
+    modelTransformEnabled: 0
+    modelTransform: {x: 0, y: 0.1, z: -0.1}
+  smartTerrain:
+    autoInitTracker: 0
+    autoStartTracker: 0
+  webcam:
+    deviceNameSetInEditor: Vimicro USB2.0 Camera
+    flipHorizontally: 0
+    turnOffWebCam: 0
+    renderTextureLayer: 30
