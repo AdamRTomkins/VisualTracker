@@ -65,11 +65,11 @@ public class SerializableDictionary<TKey, TValue> : Dictionary<TKey, TValue>, IS
 public class Voxel
 {
     public string name;
+    public string testProp;
 
     public Vector3 position;
-    public float gridInterval;
-    
-    public float viewportGridInterval;
+
+    public Vector3 gridInterval;
 
     public int uniqueViews;
     public float timeViewed;
@@ -121,8 +121,6 @@ public class RayCast : MonoBehaviour {
         voxelDict = new SDictionary();
         viewportVoxelDict = new SDictionary();
         connectionDict = new V1Dictionary();
-
-      
 
         // Start with a dummy voxel.
         currentVoxel = new Voxel();
@@ -199,8 +197,8 @@ public class RayCast : MonoBehaviour {
                     currentVoxel.timeViewed += elapsedTime;
                     currentVoxel.uniqueViews += 1;
                     currentVoxel.lastViewedAt = Time.time;
-
-                    // Save results back to the previous Voxel
+                    
+                        // Save results back to the previous Voxel
                     voxelDict[currentVoxel.position] = currentVoxel;
 
                     // Retrieve or Start a new instance
@@ -217,6 +215,7 @@ public class RayCast : MonoBehaviour {
                         currentVoxel.uniqueViews = 0;
                         currentVoxel.timeViewed = 0.0f;
                         currentVoxel.lastViewedAt = Time.time;
+                        currentVoxel.gridInterval = gridInterval;
                         if (marker != null)
                         {
                             if (VisualisationOffset != null)
@@ -271,6 +270,7 @@ public class RayCast : MonoBehaviour {
                             currentViewportVoxel.timeViewed += elapsedTime;
                             currentViewportVoxel.uniqueViews += 1;
                             currentViewportVoxel.lastViewedAt = Time.time;
+                            currentViewportVoxel.gridInterval = viewportGridInterval;
 
                             // Save results back to the previous Voxel
                             viewportVoxelDict[currentViewportVoxel.position] = currentViewportVoxel;
@@ -384,7 +384,7 @@ public class RayCast : MonoBehaviour {
                 }
                 else
                 {
-                    timeLimit -= Time.deltaTime;
+                    timeLimit -=  Time.deltaTime;
                 }
             }
         }

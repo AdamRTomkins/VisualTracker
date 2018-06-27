@@ -7,11 +7,13 @@ Unify Example projects into three scenes
 Re Implement AR example
 Test Offset script
 Add scale outputs 
+Remove first dummyVoxel from output 
 
 ## A-Frame visualisation
 
 Create a A-Frame page to load up the saved viewer data in the three JSON files.
-1. Create JSON loader component
+1. Create JSON loader component for each type
+2. 
 
 
 

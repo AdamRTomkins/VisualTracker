@@ -67,9 +67,8 @@ public class Voxel
     public string name;
 
     public Vector3 position;
-    public float gridInterval;
-    
-    public float viewportGridInterval;
+
+    public Vector3 gridInterval;
 
     public int uniqueViews;
     public float timeViewed;
@@ -217,6 +216,7 @@ public class RayCast : MonoBehaviour {
                         currentVoxel.uniqueViews = 0;
                         currentVoxel.timeViewed = 0.0f;
                         currentVoxel.lastViewedAt = Time.time;
+                        currentVoxel.gridInterval = gridInterval;
                         if (marker != null)
                         {
                             if (VisualisationOffset != null)
@@ -271,6 +271,7 @@ public class RayCast : MonoBehaviour {
                             currentViewportVoxel.timeViewed += elapsedTime;
                             currentViewportVoxel.uniqueViews += 1;
                             currentViewportVoxel.lastViewedAt = Time.time;
+                            currentViewportVoxel.gridInterval = viewportGridInterval;
 
                             // Save results back to the previous Voxel
                             viewportVoxelDict[currentViewportVoxel.position] = currentViewportVoxel;
