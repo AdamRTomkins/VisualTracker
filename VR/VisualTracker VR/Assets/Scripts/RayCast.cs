@@ -111,6 +111,11 @@ public class RayCast : MonoBehaviour {
     Vector3 previousIndex;
     Vector3 previousViewportIndex;
 
+    Vector3 displayPosition;
+    Vector3 viewportDisplayPosition;
+    Vector3 previousDisplayPosition;
+    Vector3 previousViewportDisplayPosition;
+
     private float nextActionTime = 0.0f;
     public float period = 0.1f;
 
@@ -125,10 +130,15 @@ public class RayCast : MonoBehaviour {
         // Start with a dummy voxel.
         currentVoxel = new Voxel();
         previousIndex = new Vector3(0, 0, 0);
+        previousDisplayPosition = new Vector3(0, 0, 0);
         previousViewportIndex = new Vector3(0, 0, 0);
+        previousViewportDisplayPosition = new Vector3(0, 0, 0);
+
 
         // Start with a dummy viewport
         currentViewportVoxel = new Voxel();
+
+
 
 
         // Scale the marker transform once at the beginning of the run.
@@ -180,6 +190,7 @@ public class RayCast : MonoBehaviour {
 
                 Vector3 index = new Vector3(Mathf.Round((1 / gridInterval[0]) * rotatedVectorFromCenter[0]) / (1 / gridInterval[0]), Mathf.Round((1 / gridInterval[1]) * rotatedVectorFromCenter[1]) / (1 / gridInterval[1]), Mathf.Round((1 / gridInterval[2]) * rotatedVectorFromCenter[2]) / (1 / gridInterval[2]));
 
+                index = new Vector3( index[0] / gameObject.transform.localScale[0], index[1] / gameObject.transform.localScale[1], index[2] / gameObject.transform.localScale[2]);
 
                 // Has the cube changed
                 /*
@@ -220,15 +231,27 @@ public class RayCast : MonoBehaviour {
                         {
                             if (VisualisationOffset != null)
                             {
-                                currentVoxel.boundryBox = Instantiate(marker, index+VisualisationOffset.transform.position, Quaternion.identity, VisualisationOffset.transform);
+                                displayPosition = new Vector3();
+                                displayPosition = index ;
+                                displayPosition = new Vector3(displayPosition[0] * gameObject.transform.localScale[0], displayPosition[1] * gameObject.transform.localScale[1], displayPosition[2] * gameObject.transform.localScale[2]);
+                                displayPosition = displayPosition + VisualisationOffset.transform.position;
+
+
+                                currentVoxel.boundryBox = Instantiate(marker, displayPosition, Quaternion.identity);//, VisualisationOffset.transform);
                                 currentVoxel.boundryBox.layer = 3;
-                                Debug.DrawLine(previousIndex+VisualisationOffset.transform.position, index + VisualisationOffset.transform.position, Color.red, 100.0f);
+                                Debug.DrawLine(previousDisplayPosition, displayPosition, Color.red, 100.0f);
 
                             }
                             else
                             {
-                                currentVoxel.boundryBox = Instantiate(marker, index, Quaternion.identity);
-                                Debug.DrawLine(previousIndex, index, Color.red, 100.0f);
+
+                                displayPosition = new Vector3();
+                                displayPosition = index;
+                                displayPosition = new Vector3(displayPosition[0] * gameObject.transform.localScale[0], displayPosition[1] * gameObject.transform.localScale[1], displayPosition[2] * gameObject.transform.localScale[2]);
+
+
+                                currentVoxel.boundryBox = Instantiate(marker, displayPosition, Quaternion.identity);
+                                Debug.DrawLine(previousDisplayPosition, displayPosition, Color.red, 100.0f);
 
                             }
                         }
@@ -238,6 +261,8 @@ public class RayCast : MonoBehaviour {
 
                 // Save a copy of the last voxel index for easy look ups
                 previousIndex = index;
+                previousDisplayPosition = displayPosition;
+
 
                 // If we are tracking camera location, we can do the whole shebang again
 
@@ -253,13 +278,8 @@ public class RayCast : MonoBehaviour {
                         //Vector3 viewportIndex = new Vector3(Mathf.Round((1 / viewportGridInterval) * rotatedVectorFromCenter[0]) / (1 / viewportGridInterval) + (viewportGridInterval / 2), Mathf.Round((1 / viewportGridInterval) * rotatedVectorFromCenter[1]) / (1 / viewportGridInterval) + (viewportGridInterval / 2), Mathf.Round((1 / viewportGridInterval) * rotatedVectorFromCenter[2]) / (1 / viewportGridInterval) + (viewportGridInterval / 2));
                         Vector3 viewportIndex = new Vector3(Mathf.Round((1 / viewportGridInterval[0]) * rotatedVectorFromCenter[0]) / (1 / viewportGridInterval[0]) , Mathf.Round((1 / viewportGridInterval[1]) * rotatedVectorFromCenter[1]) / (1 / viewportGridInterval[1]) , Mathf.Round((1 / viewportGridInterval[2]) * rotatedVectorFromCenter[2]) / (1 / viewportGridInterval[2]));
 
+                        //viewportIndex = new Vector3(viewportIndex[0] / gameObject.transform.localScale[0], viewportIndex[1] / gameObject.transform.localScale[1], viewportIndex[2] / gameObject.transform.localScale[2]);
 
-                        // Has the cube changed
-                        /*
-                         * Update the time spent at the previous cube 
-                         * 
-                         * Create a new cube if required
-                         */
 
                         if (viewportIndex != currentViewportVoxel.position)
                         {
@@ -295,20 +315,31 @@ public class RayCast : MonoBehaviour {
                                 {
                                     if (VisualisationOffset != null)
                                     {
-                                        currentViewportVoxel.boundryBox = Instantiate(viewportMarker, viewportIndex + VisualisationOffset.transform.position, Quaternion.identity, VisualisationOffset.transform);
+                                        viewportDisplayPosition = new Vector3();
+                                        viewportDisplayPosition = viewportIndex;
+                                        viewportDisplayPosition = new Vector3(viewportDisplayPosition[0] * gameObject.transform.localScale[0], viewportDisplayPosition[1] * gameObject.transform.localScale[1], viewportDisplayPosition[2] * gameObject.transform.localScale[2]);
+                                        viewportDisplayPosition = viewportIndex + VisualisationOffset.transform.position;
+
+                                        currentViewportVoxel.boundryBox = Instantiate(viewportMarker, viewportDisplayPosition, Quaternion.identity);//, VisualisationOffset.transform);
                                         currentViewportVoxel.boundryBox.layer = 3;
 
-                                        Debug.DrawLine(previousViewportIndex + VisualisationOffset.transform.position, viewportIndex+VisualisationOffset.transform.position, Color.green, 100.0f);
-                                    } else { 
-                                        currentViewportVoxel.boundryBox = Instantiate(viewportMarker, viewportIndex, Quaternion.identity);
-                                        Debug.DrawLine(previousViewportIndex, viewportIndex, Color.green, 100.0f);
+                                        Debug.DrawLine(previousViewportDisplayPosition, viewportDisplayPosition, Color.green, 100.0f);
+                                    } else {
+
+
+                                        viewportDisplayPosition = new Vector3();
+                                        viewportDisplayPosition = viewportIndex ;
+                                        //viewportDisplayPosition = new Vector3(viewportDisplayPosition[0] * gameObject.transform.localScale[0], viewportDisplayPosition[1] * gameObject.transform.localScale[1], viewportDisplayPosition[2] * gameObject.transform.localScale[2]);
+
+                                        currentViewportVoxel.boundryBox = Instantiate(viewportMarker, viewportDisplayPosition, Quaternion.identity);
+                                        Debug.DrawLine(previousViewportDisplayPosition, viewportDisplayPosition, Color.green, 100.0f);
                                     }
                                 }
                             }
                         }
 
                         previousViewportIndex = viewportIndex;
-
+                        previousViewportDisplayPosition = viewportDisplayPosition;
                         // A horribly messy solution to record the connections
                         /* 
                          * A three depth nested dictionary
@@ -355,15 +386,11 @@ public class RayCast : MonoBehaviour {
                                 }
                             }
 
-                           
-                            if (VisualisationOffset != null)
-                            {
-                                Debug.DrawLine(index+VisualisationOffset.transform.position, viewportIndex+ VisualisationOffset.transform.position, Color.blue, 100.0f);
-                            }
-                            else
-                            {
-                                Debug.DrawLine(index, viewportIndex, Color.blue, 100.0f);
-                            }
+
+                            Debug.DrawLine(displayPosition, viewportDisplayPosition, Color.blue, 100.0f);
+   
+
+                            
                         }
 
                     }
